@@ -1,0 +1,1 @@
+/home/rogshotz/.bash_profile
