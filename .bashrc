@@ -18,7 +18,7 @@ alias gbuild="./gradlew build"
 alias gclean="./gradlew clean"
 alias gdeploy="./gradlew deploy"
 # Todo: make netctl script that execs a list, then you choose via number then stops all then starts
-alias netcd="cd /etc/netctl && ls -p | grep -v / && sudo netctl stop-all"
+alias netstop="ls /etc/netctl -p | grep -v / && sudo netctl stop-all"
 
 export HISTFILESIZE=
 export HISTSIZE=
