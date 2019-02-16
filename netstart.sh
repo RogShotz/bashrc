@@ -9,9 +9,9 @@ NC='\033[0m'
 
 arguements () {
 if [[ "${flag}" == *"h"* ]];
-then
-  echo "n, Does not run netctl stop-all"
-  echo "v, Runs in verbose mode"
+  then
+    echo "n, Does not run netctl stop-all"
+    echo "v, Runs in verbose mode"
   exit
 fi
 }
@@ -23,18 +23,18 @@ fileAmount () {
 
 netstop() {
   if [[ "${flag}" == *"n"* ]];
-  then
+    then
       if [[ "${flag}" == *"v"* ]];
       then
         echo -e "${YELLOW}stop-all not ran${NC}"
       fi
-  else
-  sudo netctl stop-all
-    if [[ "${flag}" == *"v"* ]];
-    then
-      echo -e "${YELLOW}stop-all ran${NC}"
-    fi
-fi
+    else
+      sudo netctl stop-all
+        if [[ "${flag}" == *"v"* ]];
+          then
+            echo -e "${YELLOW}stop-all ran${NC}"
+        fi
+  fi
 }
 
 list () {
@@ -47,15 +47,31 @@ list () {
 pick () {
   printf "Pick a wifi "
   read number
-  # use this for -v flag echo "sudo netctl start "${arr[$number -1]}""
+  if [[ "${flag}" == *"v"* ]]; 
+    then
+      echo -e "${YELLOW}sudo netctl start "${arr[$number - 1]}"${NC}"
+  fi
   sudo netctl start "${arr[$number - 1]}"
-          if [[ "${flag}" == *"v"* ]];
-      then 
-        echo -e "${YELLOW}sudo netctl start "${arr[$number - 1]}"${NC}"
-      fi 
+}
+
+waitOnline() {
+  if [[ "${flag}" == *"s"* ]];
+    then
+      if [[ "${flag}" == *"v"* ]]; 
+        then
+          echo -e "${YELLOW}wait-online skipped${NC}"
+      fi
+    else
+      if [[ "${flag}" == *"v"* ]];
+        then
+          echo -e "${YELLOW}sudo netctl wait-online ${arr[$number - 1]}${NC}"
+      fi
+    sudo netctl wait-online "${arr[$number -1]}"
+  fi
 }
 
 arguements
 netstop
 list
 pick
+waitOnline
