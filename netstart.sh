@@ -7,6 +7,15 @@ flag=$1
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+arguements () {
+if [[ "${flag}" == *"h"* ]];
+then
+  echo "n, Does not run netctl stop-all"
+  echo "v, Runs in verbose mode"
+  exit
+fi
+}
+
 fileAmount () {
   find "/etc/netctl/" -maxdepth 1 -type f | wc -l
   return $?
@@ -46,6 +55,7 @@ pick () {
       fi 
 }
 
+arguements
 netstop
 list
 pick
