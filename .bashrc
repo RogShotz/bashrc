@@ -29,6 +29,7 @@ export HISTTIMEFORMAT="%m-%d-%y %T "
 # Misc
 alias nqq="notepadqq"
 alias sxf="startxfce4"
+alias poweroff="systemctl poweroff"
 
 # Exports
 export PATH=$PATH:~/.local/bin
