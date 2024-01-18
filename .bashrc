@@ -1,36 +1,38 @@
-#
-# ~/.bashrc
-#
+# .bashrc
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+# User Settings
+HISTSIZE=-1
 
-alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
+# User Aliases
+alias sudo='sudo '
+alias glo='openconnect --protocol=gp cpvpn.calpoly.edu --user=lurowe'
+alias nqq='notepadqq'
+alias vim='nvim'
 
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk/
-export PATH="$PATH:$JAVA_HOME/bin"
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
-# User made
-# Gradlew
-alias gbuild="./gradlew build"
-alias gclean="./gradlew clean"
-alias gdeploy="./gradlew deploy"
-alias gstop="./gradlew --stop"
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
-# Network
-alias netstart="~/./git/bashrc/netstart.sh"
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
 
-# Terminal
-export HISTFILESIZE=
-export HISTSIZE=
-export HISTTIMEFORMAT="%m-%d-%y %T "
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
 
-# Misc
-alias nqq="notepadqq"
-alias sxf="startxfce4"
-alias poweroff="systemctl poweroff"
+unset rc
 
-# Exports
-export PATH=$PATH:~/.local/bin
-export EDITOR=nvim
+export SSLKEYLOGFILE=~/.ssl-key.log
